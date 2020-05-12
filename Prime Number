@@ -1,0 +1,26 @@
+--In @val just put any number for which you want list of prime numbers.
+Declare @val int=100
+Declare @va int=2
+Declare @set int
+Declare @se nvarchar(4000)
+Declare @count int
+while (@va < @val)
+	BEGIN
+		Declare @var int=2
+			set @count =0
+			while(@var<=@va/2)
+			BEGIN
+				if(@va % @var=0)
+					BEGIN
+						set @count=@count+1
+					END
+			 set @var=@var+1 
+
+			END 
+		if (@count=0)
+		BEGIN
+		set @se =CONCAT(@se,cast(@va as nvarchar(20)),'&')
+		END
+		set @va = @va+1
+	END
+print( substring(@se,1,len(@se)-1))
