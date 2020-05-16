@@ -1,0 +1,33 @@
+--select those number which are getting repeated again in symmetrical manner
+--example 
+/*
+X Y  (repeated two times in the dataset but we wanted just once instance
+13 13
+13 13
+*/
+select x,y into #temp1  from (select x,y ,ROW_NUMBER() over (partition by x,y order by x,y) as row_id from functions) ab where row_id>1
+
+--select distinctly from functions table which is present in #temp1
+/*
+X Y 
+13 13
+*/
+select distinct  a.x,a.y into #temp2 from functions a ,#temp1 b where a.x=b.y and b.x=a.y
+
+/*separate rest of the data from #temp1 data*/
+/*
+X Y 
+20 21
+21 20
+*/
+select ab.x,ab.y into #temp3  from (select x,y ,ROW_NUMBER() over (partition by x,y order by x,y) as row_id from functions) ab 
+,#temp1 where ab.x!=(select x from #temp1) and ab.y!=(select y from #temp1)
+
+/*select those which are repeating. Here we want just one instance only. and union it with temp2 table
+X Y
+20 21
+*/
+select a.x,a.y  from #temp3 a, #temp3 b where a.x=b.y and a.y=b.x and a.x<a.y
+union
+select * from #temp2
+order by x
