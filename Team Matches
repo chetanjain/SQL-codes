@@ -1,6 +1,6 @@
-create table #temp ( col int,team varchar(100))
+create table temp ( col int,team varchar(100))
 
-insert into #temp values
+insert into temp values
 (1,'India'),
 (2,'Pakistan'),
 (3,'New Zealand'),
