@@ -1,10 +1,10 @@
-create table temp ( col int,team varchar(100))
+create table temp ( col int,team varchar(100));
 
 insert into temp values
 (1,'India'),
 (2,'Pakistan'),
 (3,'New Zealand'),
-(4,'Australia')
+(4,'Australia');
 
 select a.team team_a, b.team as team_b from #temp a , #temp b where a.team!=b.team and a.col<b.col
-order by a.col
+order by a.col;
