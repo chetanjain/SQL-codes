@@ -6,5 +6,5 @@ insert into temp values
 (3,'New Zealand'),
 (4,'Australia');
 
-select a.team team_a, b.team as team_b from #temp a , #temp b where a.team!=b.team and a.col<b.col
+select a.team team_a, b.team as team_b from temp a , temp b where a.team!=b.team and a.col<b.col
 order by a.col;
