@@ -28,3 +28,10 @@ insert into bms values
 -- where is_empty='Y' 
 -- and ((prev1='Y' and prev2= 'Y') or (next1='Y' and next2= 'Y') or (prev1='Y' and next1= 'Y'));
 
+--option : 2
+-- Method -1
+-- WITH cte as(
+--   select *,row_number() over( order by seat_no) as ranking from bms where is_empty='Y'
+-- ),
+-- t1 as (select * , (seat_no-ranking) as diff from cte)
+-- select * from t1 where diff in (select diff from t1 group by diff having count(*) >=3);
