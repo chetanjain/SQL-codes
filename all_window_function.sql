@@ -1,0 +1,10 @@
+WITH data1 as 
+(select  RQST_TYPE_CD,SPCL_RQST_ID from pnr_spcl_rqst where RQST_TYPE_CD='DOCA' limit 20)--order by SPCL_RQST_ID )
+select 
+RQST_TYPE_CD,SPCL_RQST_ID 
+,sum(SPCL_RQST_ID) over ( partition by RQST_TYPE_CD ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) sum_SPCL_RQST_ID
+,count(SPCL_RQST_ID) over (partition by RQST_TYPE_CD ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) count_SPCL_RQST_ID
+,avg(SPCL_RQST_ID) over (partition by RQST_TYPE_CD ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) avg_SPCL_RQST_ID
+,lead(SPCL_RQST_ID) over (partition by RQST_TYPE_CD order by SPCL_RQST_ID) lead_SPCL_RQST_ID
+,lag(SPCL_RQST_ID) over (partition by RQST_TYPE_CD order by SPCL_RQST_ID) lag_SPCL_RQST_ID
+from data1;
